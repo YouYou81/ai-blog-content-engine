@@ -1,0 +1,41 @@
+sheet_name: "Keyword Pool"
+
+columns:
+  - name: "keyword"
+    required: true
+    description: "Primary keyword or topic."
+  - name: "cluster"
+    required: false
+    description: "Topic cluster or content pillar."
+  - name: "intent"
+    required: true
+    allowed_values: ["informational", "commercial", "transactional", "navigational"]
+  - name: "priority"
+    required: true
+    allowed_values: ["P0", "P1", "P2", "P3"]
+  - name: "status"
+    required: true
+    allowed_values:
+      - "backlog"
+      - "selected"
+      - "outline_ready"
+      - "draft_ready"
+      - "optimized"
+      - "image_ready"
+      - "published"
+      - "needs_review"
+  - name: "owner"
+    required: false
+  - name: "target_url"
+    required: false
+  - name: "publish_platform"
+    required: false
+    allowed_values: ["wordpress", "ghost", "notion"]
+  - name: "published_url"
+    required: false
+  - name: "gsc_clicks_28d"
+    required: false
+  - name: "gsc_impressions_28d"
+    required: false
+  - name: "template_score"
+    required: false

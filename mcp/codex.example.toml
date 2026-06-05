@@ -1,5 +1,0 @@
-[mcp_servers.capsolver-admin-mcp]
-url = "${CAPSOLVER_ADMIN_MCP_URL}"
-
-[mcp_servers.capsolver-admin-mcp.headers]
-x-api-key = "${CAPSOLVER_ADMIN_MCP_API_KEY}"

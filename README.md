@@ -1,19 +1,19 @@
 # AI Blog 内容生产引擎
 
-从关键词到发布的全链路 AI 内容生产系统，让 SEO 内容生产成本降低 90%。
+从关键词到发布的全链路 AI 内容生产工作流，让 SEO 内容生产成本降低 90%。
 
-AI Blog 内容生产引擎把 GEO/SEO/AEO 写作规范、SERP 研究、内容生成、封面图制作、CMS 发布和质量检查包装成一个可复制的 GitHub 项目。它适合技术博客、SaaS 增长团队、内容运营团队和需要稳定批量产出高质量文章的独立开发者。
+AI Blog 内容生产引擎是一个可复制的内容生产系统蓝图。它把关键词池管理、多阶段内容生成、SEO 质量检查、自动配图、多平台发布和发布后数据反馈整合成一套标准流程，帮助内容团队从“人工写稿”升级为“可运营、可追踪、可优化的 AI 内容流水线”。
 
 ## 核心功能
 
-- 关键词到文章：输入一个关键词，生成 TDK、TL;DR、正文、对比表、结论 CTA 和 FAQ。
-- GEO/AEO 友好：文章结构面向 AI Search、Answer Engine 和传统搜索结果摘要。
-- SERP 驱动选题：支持竞品结果拆解、搜索意图识别、内容缺口分析和文章框架选择。
-- 内链与外链策略：自动规划站内链接、权威外链、FAQ/Glossary 链接和自然锚文本。
-- 发布前质检：检查标题长度、Meta Description、关键词分布、FAQ 位置、敏感词和合规措辞。
-- 封面图工作流：生成 16:9 技术博客封面，并支持品牌 logo 的确定性合成。
-- MCP 发布集成：通过 CapSolver Admin MCP 创建文章草稿、上传封面图，并返回后台草稿信息。
-- 脱敏可复制：MCP URL、API key、后台地址和本地路径全部用环境变量或占位符表达。
+- Google Sheet 关键词池管理：运营同学可以在表格里维护关键词、优先级、意图、负责人、状态和发布平台。
+- 多阶段内容生成流水线：选题 → 大纲 → 初稿 → 优化 → 配图 → 发布，每一步都有明确输入、输出和质量门槛。
+- 自动 SEO 质量检查：可读性评分、关键词密度、E-E-A-T 评估、搜索意图覆盖、标题与摘要检查。
+- 与已有内容去重：基于 URL、标题、主题 cluster 和正文相似度识别重复或蚕食风险。
+- 自动配图：支持 DALL-E / Midjourney API 生成封面图，并按品牌规范输出。
+- 自动内/外链：根据内容主题添加站内链接、权威外链和自然锚文本。
+- 一键发布：支持 WordPress、Ghost、Notion 等平台创建草稿或发布文章。
+- 发布后效果追踪：自动拉取 Google Search Console 数据，分析高效模板，反哺关键词选择和提示词优化。
 
 ## 项目结构
 
@@ -29,16 +29,34 @@ AI Blog 内容生产引擎把 GEO/SEO/AEO 写作规范、SERP 研究、内容生
 │   ├── publishing-checklist.md
 │   └── security.md
 ├── examples/
-│   ├── keyword-brief.yaml
-│   └── article-package.md
-├── mcp/
-│   ├── claude-desktop.example.json
-│   └── codex.example.toml
+│   ├── article-package.md
+│   └── keyword-brief.yaml
+├── integrations/
+│   ├── cms-publishers.example.yaml
+│   └── google-sheets.schema.yaml
 ├── scripts/
 │   └── scan-secrets.sh
 └── skills/
     └── geo-content-tool/
         └── SKILL.md
+```
+
+## 工作流总览
+
+```text
+Google Sheet Keyword Pool
+  -> Topic Selection
+  -> SERP and Intent Research
+  -> Outline
+  -> First Draft
+  -> SEO and E-E-A-T Optimization
+  -> Duplicate and Cannibalization Check
+  -> Internal / External Link Plan
+  -> Cover Image Generation
+  -> Quality Gate
+  -> WordPress / Ghost / Notion Draft
+  -> GSC Performance Tracking
+  -> Prompt and Template Feedback
 ```
 
 ## 快速开始
@@ -49,86 +67,78 @@ AI Blog 内容生产引擎把 GEO/SEO/AEO 写作规范、SERP 研究、内容生
 cp .env.example .env
 ```
 
-2. 填入自己的后台地址和 MCP 凭证。
+2. 填入自己的内容生产配置。
 
 ```bash
-CAPSOLVER_ADMIN_MCP_URL="https://your-mcp-host.example.com"
-CAPSOLVER_ADMIN_MCP_API_KEY="replace-with-your-key"
+GOOGLE_SHEET_ID="your-keyword-pool-sheet-id"
+GOOGLE_SEARCH_CONSOLE_SITE_URL="https://www.example.com/"
+WORDPRESS_BASE_URL="https://www.example.com"
+IMAGE_PROVIDER="dalle"
 ```
 
-3. 复制 MCP 配置到你的客户端。
+3. 按 `integrations/google-sheets.schema.yaml` 创建关键词池表格。
 
-- Claude Desktop: 参考 `mcp/claude-desktop.example.json`
-- Codex: 参考 `mcp/codex.example.toml`
+4. 按 `integrations/cms-publishers.example.yaml` 选择发布平台。
 
-4. 将 `skills/geo-content-tool/SKILL.md` 安装到你的 AI coding/content agent skill 目录。
+5. 将 `skills/geo-content-tool/SKILL.md` 安装到你的 AI agent 或内容生产 agent 中。
 
-5. 用 `examples/keyword-brief.yaml` 作为输入，让 agent 执行从关键词到发布的流程。
+6. 用 `examples/keyword-brief.yaml` 作为单篇文章输入样例，跑通第一篇文章。
 
-## 推荐工作流
+## Google Sheet 关键词池
 
-```text
-Keyword Brief
-  -> SERP/Intent Research
-  -> Outline
-  -> TDK
-  -> Article Draft
-  -> Link Plan
-  -> Cover Image
-  -> Quality Gate
-  -> MCP create_post
-  -> MCP upload_image
-  -> Manual/Automated Publish
-```
+推荐用 Google Sheet 做运营入口，因为内容团队不需要进入代码仓库也能调整生产队列。
 
-## CapSolver Admin MCP
+关键字段：
 
-本项目只提供脱敏配置示例，不包含任何真实 API key、内网 IP 或后台地址。
+- `keyword`: 主关键词
+- `cluster`: 主题簇
+- `intent`: 搜索意图
+- `priority`: 优先级
+- `status`: 当前生产状态
+- `publish_platform`: WordPress / Ghost / Notion
+- `published_url`: 发布后的 URL
+- `gsc_clicks_28d`: 近 28 天点击
+- `gsc_impressions_28d`: 近 28 天曝光
+- `template_score`: 模板效果评分
 
-Claude Desktop 示例：
+## SEO 质量门槛
 
-```json
-{
-  "mcpServers": {
-    "capsolver-admin-mcp": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "${CAPSOLVER_ADMIN_MCP_URL}",
-        "--transport",
-        "http-only",
-        "--header",
-        "x-api-key: ${CAPSOLVER_ADMIN_MCP_API_KEY}"
-      ]
-    }
-  }
-}
-```
+每篇文章发布前建议检查：
 
-Codex 示例：
+- 可读性是否适合目标受众。
+- 关键词密度是否自然。
+- 搜索意图是否完整覆盖。
+- E-E-A-T 是否体现经验、专业性、权威性和可信度。
+- 是否与已有文章重复或产生关键词蚕食。
+- 标题、Meta Description、FAQ、内链、外链是否完整。
+- 自动配图是否符合品牌视觉规范。
 
-```toml
-[mcp_servers.capsolver-admin-mcp]
-url = "${CAPSOLVER_ADMIN_MCP_URL}"
+## 发布后反馈闭环
 
-[mcp_servers.capsolver-admin-mcp.headers]
-x-api-key = "${CAPSOLVER_ADMIN_MCP_API_KEY}"
-```
+发布不是终点。系统应定期拉取 Google Search Console 数据，记录每篇文章的曝光、点击、CTR、平均排名和查询词变化。
+
+这些数据会反哺：
+
+- 哪些标题模板更容易获得点击。
+- 哪些文章结构更容易被搜索引擎收录。
+- 哪些 FAQ 更容易覆盖长尾查询。
+- 哪些主题簇值得继续扩展。
+- 哪些提示词需要更新。
 
 ## 安全原则
 
-- 不提交 `.env`、真实 MCP key、后台 IP、后台域名、cookie、发布结果 JSON。
+- 不提交 `.env`、API key、OAuth token、服务账号 JSON、CMS 密码和发布结果。
 - 示例配置只使用占位符。
-- 发布前运行 `scripts/scan-secrets.sh` 做一次本地扫描。
-- 将生产 MCP 服务部署在 HTTPS 域名后，并使用最小权限 API key。
+- 发布前运行 `scripts/scan-secrets.sh` 做本地扫描。
+- 发布操作默认先创建草稿，人工确认后再上线。
 
 ## 适用场景
 
 - SaaS 技术博客规模化生产。
 - SEO 团队把关键词库转成发布队列。
-- 增长团队搭建 AI Search 可引用内容库。
-- 产品团队自动生成 FAQ、Glossary、教程和对比文章。
+- 内容运营团队用表格管理 AI 生产任务。
+- 增长团队搭建可追踪、可复盘的 AI Search 内容库。
+- 独立开发者构建低成本内容增长系统。
 
 ## License
 

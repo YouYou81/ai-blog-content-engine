@@ -1,87 +1,113 @@
 # Workflow
 
-This is the recommended end-to-end flow from keyword to published draft.
+This workflow turns a keyword row into a published and measurable content asset.
 
-## Step 1: Create Keyword Brief
+## Step 1: Manage Keyword Pool
 
-Start from `examples/keyword-brief.yaml`.
+Use Google Sheet as the content operations console.
 
-Required fields:
+Recommended statuses:
 
-- `primary_keyword`
-- `audience`
-- `search_intent`
-- `brand`
-- `product_context`
-- `cta_url`
-- `language`
+- `backlog`
+- `selected`
+- `outline_ready`
+- `draft_ready`
+- `optimized`
+- `image_ready`
+- `published`
+- `needs_review`
 
-## Step 2: Research SERP Intent
+## Step 2: Select Topic
 
-Inspect the top results or use approved SERP data.
+Pick keywords by priority, business relevance, search intent, and topic cluster coverage.
+
+Output:
+
+- Primary keyword
+- Search intent
+- Target audience
+- Slug
+- Content angle
+- Publish platform
+
+## Step 3: Research Intent and SERP
+
+Review top ranking pages or use approved SERP data.
 
 Capture:
 
 - Common headings
-- Missing examples
-- Weak or outdated claims
-- Comparison criteria
+- Missing sections
 - FAQ patterns
 - Source quality
+- Content depth
+- Differentiation angle
 
-## Step 3: Generate Article Package
+## Step 4: Generate Outline
 
-The article package should contain two separated blocks:
+The outline should include:
+
+- Search-intent summary
+- H2/H3 structure
+- Required examples
+- Link opportunities
+- FAQ candidates
+- CTA placement
+
+## Step 5: Generate First Draft
+
+The first draft should include:
 
 - TDK
-- Article
-
-Default article sections:
-
 - TL;DR
 - Introduction
-- Body with H2/H3 sections
+- Detailed body
 - Optional comparison table
-- Conclusion/CTA
+- Conclusion
 - FAQ
 
-FAQ must be the final section.
+## Step 6: Optimize
 
-## Step 4: Build Link Plan
+Run automated checks:
 
-Use:
+- Readability
+- Keyword density
+- E-E-A-T
+- Duplicate content
+- Internal link coverage
+- External authority links
+- Metadata length
 
-- 5-6 internal links
-- 3-5 authoritative external links
-- Natural reader-facing anchor text
-- No forced source-label phrases
+## Step 7: Generate Cover Image
 
-## Step 5: Create Cover Image
+Create a 16:9 cover image through DALL-E, Midjourney, or another image API.
 
-Generate a 16:9 cover image. If your brand requires a logo, composite it deterministically after image generation instead of asking the image model to draw the logo.
+The image brief should include:
 
-## Step 6: Run Quality Gate
+- Article title
+- Subject matter
+- Brand style
+- Visual constraints
+- Output size
 
-Use `docs/publishing-checklist.md`.
+## Step 8: Publish
 
-Also run:
+Create a draft in the selected platform:
 
-```bash
-bash scripts/scan-secrets.sh .
-```
+- WordPress
+- Ghost
+- Notion
 
-## Step 7: Publish Through MCP
+Write the draft URL and status back to Google Sheet.
 
-Call the CMS tools in this order:
+## Step 9: Track Performance
 
-1. `create_post`
-2. `upload_image`
-3. `update_post` or attach cover image when supported
+Pull Google Search Console data after publishing.
 
-Return:
+Analyze:
 
-- draft ID
-- slug
-- preview URL
-- cover image URL
-- any manual follow-up required
+- Which templates generate impressions.
+- Which titles produce CTR.
+- Which topics earn long-tail queries.
+- Which pages need refresh.
+- Which prompts should be updated.

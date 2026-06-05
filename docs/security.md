@@ -1,25 +1,30 @@
 # Security
 
-This project is designed to be copied, forked, and adapted. Keep secrets out of the repository.
+This project is designed to be copied, forked, and adapted. Keep credentials and private data out of the repository.
 
 ## Never Commit
 
-- MCP API keys
-- Admin API keys
-- Internal IP addresses
-- Private backend URLs
+- `.env`
+- API keys
+- OAuth tokens
+- Google service account JSON
+- CMS usernames and passwords
+- WordPress application passwords
+- Ghost Admin API keys
+- Notion API keys
 - Cookies or session tokens
-- User data
+- Private backend URLs
 - Generated publish result JSON
-- Local machine paths that reveal private infrastructure
+- User data or private analytics exports
 
 ## Use Environment Variables
 
 Use `.env.example` as the template and store real values in `.env`.
 
 ```bash
-CAPSOLVER_ADMIN_MCP_URL="https://your-mcp-host.example.com"
-CAPSOLVER_ADMIN_MCP_API_KEY="replace-with-your-key"
+GOOGLE_SHEET_ID="your-keyword-pool-sheet-id"
+GOOGLE_SERVICE_ACCOUNT_JSON="./secrets/google-service-account.json"
+WORDPRESS_BASE_URL="https://www.example.com"
 ```
 
 ## Scan Before Push
@@ -30,13 +35,13 @@ Run:
 bash scripts/scan-secrets.sh .
 ```
 
-The scanner checks for common MCP keys, API key assignments, and private network URLs.
+The scanner checks for common API key assignments, private network URLs, and hardcoded credentials.
 
-## MCP Hardening
+## Publishing Safety
 
-- Serve MCP over HTTPS.
+- Create drafts by default.
+- Require quality gate approval before publishing.
+- Store credentials outside the repo.
+- Log article IDs and URLs, not secrets.
+- Limit write access for CMS credentials.
 - Rotate keys regularly.
-- Use least-privilege admin keys.
-- Keep publish tools draft-first by default.
-- Log publish actions without logging credentials.
-- Prefer domain names over private IPs in shared config.

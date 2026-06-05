@@ -1,42 +1,56 @@
 primary_keyword: "ai blog content engine"
 language: "en"
-audience: "SaaS growth teams and technical content operators"
+audience: "SaaS growth teams and content operations teams"
 search_intent: "commercial investigation"
 target_region: "global"
+
+keyword_pool:
+  source: "google_sheets"
+  sheet_id: "${GOOGLE_SHEET_ID}"
+  row_id: "42"
+  cluster: "ai seo automation"
+  priority: "P1"
+  owner: "content-ops"
+  status: "selected"
 
 brand:
   name: "Your Brand"
   homepage_url: "https://www.example.com"
-  dashboard_url: "https://dashboard.example.com"
+  blog_url: "https://www.example.com/blog"
   tone: "clear, practical, technical, responsible"
 
-product_context:
-  category: "AI content production system"
-  value_proposition: "reduce SEO content production cost by 90%"
-  use_cases:
-    - "keyword-to-article workflow"
-    - "GEO and AEO content generation"
-    - "CMS draft publishing through MCP"
+pipeline:
+  stages:
+    - "topic_selection"
+    - "outline"
+    - "first_draft"
+    - "seo_optimization"
+    - "image_generation"
+    - "publishing"
+    - "gsc_tracking"
+
+seo_quality_gate:
+  readability_min_score: 70
+  keyword_density_target: "0.8%-1.8%"
+  require_eeat_review: true
+  require_duplicate_check: true
+  require_internal_links: true
+  require_external_links: true
+
+image_generation:
+  provider: "dalle"
+  aspect_ratio: "16:9"
+  style: "clean technical editorial cover"
 
 publishing:
-  slug: "ai-blog-content-engine"
-  cms: "capsolver-admin-mcp"
+  platform: "wordpress"
   create_draft: true
   upload_cover: true
+  write_url_back_to_sheet: true
 
-constraints:
-  include_faq: true
-  include_comparison_table: true
-  require_compliance_language: true
-  avoid_words:
-    - "unlock"
-    - "unleash"
-    - "leverage"
-
-links:
-  internal:
-    - "https://www.example.com/blog"
-    - "https://www.example.com/docs"
-  external_authority:
-    - "https://developers.google.com/search/docs"
-    - "https://schema.org"
+tracking:
+  provider: "google_search_console"
+  windows:
+    - "7d"
+    - "28d"
+  write_metrics_back_to_sheet: true

@@ -1,0 +1,25 @@
+publishers:
+  wordpress:
+    enabled: true
+    base_url: "${WORDPRESS_BASE_URL}"
+    username: "${WORDPRESS_USERNAME}"
+    app_password: "${WORDPRESS_APP_PASSWORD}"
+    default_status: "draft"
+
+  ghost:
+    enabled: false
+    admin_api_url: "${GHOST_ADMIN_API_URL}"
+    admin_api_key: "${GHOST_ADMIN_API_KEY}"
+    default_status: "draft"
+
+  notion:
+    enabled: false
+    api_key: "${NOTION_API_KEY}"
+    database_id: "${NOTION_DATABASE_ID}"
+    default_status: "draft"
+
+publishing_policy:
+  create_draft_first: true
+  require_quality_gate_pass: true
+  attach_cover_image: true
+  record_published_url_to_sheet: true
