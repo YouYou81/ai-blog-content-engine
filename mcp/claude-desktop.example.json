@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "capsolver-admin-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "${CAPSOLVER_ADMIN_MCP_URL}",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${CAPSOLVER_ADMIN_MCP_API_KEY}"
+      ]
+    }
+  }
+}

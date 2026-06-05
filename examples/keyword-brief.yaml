@@ -1,0 +1,42 @@
+primary_keyword: "ai blog content engine"
+language: "en"
+audience: "SaaS growth teams and technical content operators"
+search_intent: "commercial investigation"
+target_region: "global"
+
+brand:
+  name: "Your Brand"
+  homepage_url: "https://www.example.com"
+  dashboard_url: "https://dashboard.example.com"
+  tone: "clear, practical, technical, responsible"
+
+product_context:
+  category: "AI content production system"
+  value_proposition: "reduce SEO content production cost by 90%"
+  use_cases:
+    - "keyword-to-article workflow"
+    - "GEO and AEO content generation"
+    - "CMS draft publishing through MCP"
+
+publishing:
+  slug: "ai-blog-content-engine"
+  cms: "capsolver-admin-mcp"
+  create_draft: true
+  upload_cover: true
+
+constraints:
+  include_faq: true
+  include_comparison_table: true
+  require_compliance_language: true
+  avoid_words:
+    - "unlock"
+    - "unleash"
+    - "leverage"
+
+links:
+  internal:
+    - "https://www.example.com/blog"
+    - "https://www.example.com/docs"
+  external_authority:
+    - "https://developers.google.com/search/docs"
+    - "https://schema.org"
