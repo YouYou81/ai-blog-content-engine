@@ -55,6 +55,7 @@ Use this checklist before sending an article to WordPress, Ghost, Notion, or ano
 - Canonical URL is correct when required.
 - Published or draft URL is written back to Google Sheet.
 - Status is updated.
+- If a backend MCP is used, the config contains only generic names and environment-variable placeholders.
 
 ## Post-Publish Tracking
 

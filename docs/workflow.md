@@ -97,8 +97,11 @@ Create a draft in the selected platform:
 - WordPress
 - Ghost
 - Notion
+- Generic content admin MCP
 
 Write the draft URL and status back to Google Sheet.
+
+When using the MCP route, keep the server name generic, such as `content-admin-mcp`, and store the real URL and key in environment variables.
 
 ## Step 9: Track Performance
 

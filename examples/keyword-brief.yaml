@@ -44,6 +44,7 @@ image_generation:
 
 publishing:
   platform: "wordpress"
+  admin_mcp: "content-admin-mcp"
   create_draft: true
   upload_cover: true
   write_url_back_to_sheet: true

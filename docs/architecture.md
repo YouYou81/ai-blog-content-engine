@@ -75,6 +75,9 @@ Supported targets:
 - Ghost
 - Notion
 - Other CMS APIs
+- Generic content admin MCP
+
+The MCP route uses `integrations/content-admin-mcp.tools.yaml` as the tool contract. It keeps the backend name, URL, and credentials outside the repository while preserving the publish workflow.
 
 Default policy:
 
@@ -107,7 +110,7 @@ Google Sheet
   -> GEO / SEO Content Skill
   -> SEO Quality Gate
   -> Image Generation Provider
-  -> CMS Publisher
+  -> CMS Publisher or Content Admin MCP
   -> Google Search Console
   -> Google Sheet Feedback Columns
 ```
@@ -118,5 +121,5 @@ The engine is intentionally modular. You can replace:
 
 - Google Sheet with Airtable or a database.
 - DALL-E with Midjourney or another image provider.
-- WordPress with Ghost, Notion, Webflow, Strapi, or a custom CMS.
+- WordPress with Ghost, Notion, Webflow, Strapi, a custom CMS, or a generic content admin MCP.
 - GSC with analytics data from another source.

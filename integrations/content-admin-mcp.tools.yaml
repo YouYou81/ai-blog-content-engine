@@ -1,0 +1,38 @@
+server:
+  name: "content-admin-mcp"
+  url: "${CONTENT_ADMIN_MCP_URL}"
+  auth_header: "x-api-key"
+  auth_value: "${CONTENT_ADMIN_MCP_API_KEY}"
+
+tools:
+  create_post:
+    description: "Create a draft post in the connected content backend."
+    required_fields:
+      - title
+      - slug
+      - article_markdown
+      - meta_description
+      - status
+
+  upload_image:
+    description: "Upload a cover image and return a public or CMS media URL."
+    required_fields:
+      - slug
+      - image_path_or_base64
+      - alt_text
+
+  update_post:
+    description: "Update draft metadata, cover image, tags, or article body."
+    required_fields:
+      - slug
+
+  publish_post:
+    description: "Publish or schedule a reviewed draft. Keep disabled by default if human review is required."
+    required_fields:
+      - slug
+
+policy:
+  default_status: "draft"
+  require_quality_gate_pass: true
+  require_human_review_for_publish: true
+  write_result_back_to_keyword_pool: true

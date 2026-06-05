@@ -12,7 +12,7 @@ AI Blog 内容生产引擎是一个可复制的内容生产系统蓝图。它把
 - 与已有内容去重：基于 URL、标题、主题 cluster 和正文相似度识别重复或蚕食风险。
 - 自动配图：支持 DALL-E / Midjourney API 生成封面图，并按品牌规范输出。
 - 自动内/外链：根据内容主题添加站内链接、权威外链和自然锚文本。
-- 一键发布：支持 WordPress、Ghost、Notion 等平台创建草稿或发布文章。
+- 一键发布：支持 WordPress、Ghost、Notion 等平台创建草稿或发布文章，也可通过通用后台 MCP 绑定自有发布系统。
 - 发布后效果追踪：自动拉取 Google Search Console 数据，分析高效模板，反哺关键词选择和提示词优化。
 
 ## 项目结构
@@ -32,8 +32,12 @@ AI Blog 内容生产引擎是一个可复制的内容生产系统蓝图。它把
 │   ├── article-package.md
 │   └── keyword-brief.yaml
 ├── integrations/
+│   ├── content-admin-mcp.tools.yaml
 │   ├── cms-publishers.example.yaml
 │   └── google-sheets.schema.yaml
+├── mcp/
+│   ├── claude-desktop.example.json
+│   └── codex.example.toml
 ├── scripts/
 │   └── scan-secrets.sh
 └── skills/
@@ -54,7 +58,7 @@ Google Sheet Keyword Pool
   -> Internal / External Link Plan
   -> Cover Image Generation
   -> Quality Gate
-  -> WordPress / Ghost / Notion Draft
+  -> WordPress / Ghost / Notion / Content Admin MCP Draft
   -> GSC Performance Tracking
   -> Prompt and Template Feedback
 ```
@@ -80,9 +84,53 @@ IMAGE_PROVIDER="dalle"
 
 4. 按 `integrations/cms-publishers.example.yaml` 选择发布平台。
 
-5. 将 `skills/geo-content-tool/SKILL.md` 安装到你的 AI agent 或内容生产 agent 中。
+5. 如果使用自有后台，按 `mcp/` 里的示例配置通用后台 MCP，并参考 `integrations/content-admin-mcp.tools.yaml` 实现工具契约。
 
-6. 用 `examples/keyword-brief.yaml` 作为单篇文章输入样例，跑通第一篇文章。
+6. 将 `skills/geo-content-tool/SKILL.md` 安装到你的 AI agent 或内容生产 agent 中。
+
+7. 用 `examples/keyword-brief.yaml` 作为单篇文章输入样例，跑通第一篇文章。
+
+## 后台 MCP 配置
+
+如果你有自己的内容后台，可以通过通用 MCP 接入。项目只保留占位符，不写任何真实后台名称、IP、域名或 key。
+
+Claude Desktop 示例：
+
+```json
+{
+  "mcpServers": {
+    "content-admin-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "${CONTENT_ADMIN_MCP_URL}",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${CONTENT_ADMIN_MCP_API_KEY}"
+      ]
+    }
+  }
+}
+```
+
+Codex 示例：
+
+```toml
+[mcp_servers.content-admin-mcp]
+url = "${CONTENT_ADMIN_MCP_URL}"
+
+[mcp_servers.content-admin-mcp.headers]
+x-api-key = "${CONTENT_ADMIN_MCP_API_KEY}"
+```
+
+建议后台 MCP 暴露这些通用工具：
+
+- `create_post`: 创建草稿。
+- `upload_image`: 上传封面图。
+- `update_post`: 更新 metadata、封面图或正文。
+- `publish_post`: 可选，默认建议人工审核后发布。
 
 ## Google Sheet 关键词池
 
@@ -95,7 +143,7 @@ IMAGE_PROVIDER="dalle"
 - `intent`: 搜索意图
 - `priority`: 优先级
 - `status`: 当前生产状态
-- `publish_platform`: WordPress / Ghost / Notion
+- `publish_platform`: WordPress / Ghost / Notion / Content Admin MCP
 - `published_url`: 发布后的 URL
 - `gsc_clicks_28d`: 近 28 天点击
 - `gsc_impressions_28d`: 近 28 天曝光
@@ -127,7 +175,7 @@ IMAGE_PROVIDER="dalle"
 
 ## 安全原则
 
-- 不提交 `.env`、API key、OAuth token、服务账号 JSON、CMS 密码和发布结果。
+- 不提交 `.env`、API key、OAuth token、服务账号 JSON、CMS 密码、MCP key 和发布结果。
 - 示例配置只使用占位符。
 - 发布前运行 `scripts/scan-secrets.sh` 做本地扫描。
 - 发布操作默认先创建草稿，人工确认后再上线。

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "content-admin-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "${CONTENT_ADMIN_MCP_URL}",
+        "--transport",
+        "http-only",
+        "--header",
+        "x-api-key: ${CONTENT_ADMIN_MCP_API_KEY}"
+      ]
+    }
+  }
+}

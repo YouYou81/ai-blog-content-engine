@@ -4,6 +4,7 @@ set -euo pipefail
 root="${1:-.}"
 
 patterns=(
+  'mcp_[A-Za-z0-9]{16,}'
   'x-api-key[[:space:]]*[:=][[:space:]]*["'\'']?[^"'\'',[:space:]]+'
   'api[_-]?key[[:space:]]*[:=][[:space:]]*["'\'']?[^"'\'',[:space:]]+'
   'http://([0-9]{1,3}\.){3}[0-9]{1,3}(:[0-9]+)?'

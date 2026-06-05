@@ -167,8 +167,11 @@ Supported target examples:
 - Ghost
 - Notion
 - Custom CMS API
+- Generic content admin MCP
 
 Default to draft-first publishing.
+
+When a backend MCP is available, use a generic server name such as `content-admin-mcp`. Do not mention the real backend name, internal address, private domain, API key, cookie, or header value in the article package or final delivery.
 
 ## Tracking Plan
 
